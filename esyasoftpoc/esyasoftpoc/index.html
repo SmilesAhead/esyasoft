@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Esyasoft Dashboard</title>
+    <link rel="stylesheet" href="assets/css/login.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+
+  <body style="background-color: skyblue;">
+    <div class="log-form">
+      <h2>Login to Esyasoft Dashbaord</h2>
+      <form method="POST">
+        <input type="text" title="username" placeholder="username" name="username"/>
+        <input type="password" title="username" placeholder="password" name="password"/>
+        <button type="submit" class="btn" id="login">Login</button>
+        <a class="forgot" href="#">Forgot Username?</a>
+      </form>
+      <div id="status"></div>
+    </div></div>
+  </body>
+  <script>
+   $(document).ready(function() {
+      $("#login").click(  function(){
+      window.open("./dashboard");
+      window.close();
+      $.ajax({
+        url: 'https://api.enggenv.com/login?user='+encodeURIComponent($("#username").val())+'&pass='+encodeURIComponent($("#password").val()),
+        success:function(data){
+            if(data == "OK")
+            {
+              $("#first").hide();
+              $("#second").append("<p>Hello, admin</p> <br /><input type='button' id='logout' value='Log Out' />");
+            }
+            else
+            {
+              alert("Please try again");
+            }
+          },
+          error: function(){
+            alert("error");
+          }
+        });
+        });
+
+        $("#logout").click(function() {
+        $("form")[0].reset();
+        $("#first").show();
+        $("#second").hide();
+        });
+      });
+  </script>
+</html>
